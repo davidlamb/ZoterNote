@@ -1,0 +1,6 @@
+content ZoterNote chrome/content/
+skin ZoterNote default chrome/skin/
+
+overlay chrome://zotero/content/zoteroPane.xul chrome://ZoterNote/content/overlay.xul
+
+locale ZoterNote en-US chrome/locale/en-US/

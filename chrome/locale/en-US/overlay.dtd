@@ -1,0 +1,3 @@
+<!ENTITY zoternote-export-to-onenote.label "Export Selected to OneNote">
+<!ENTITY zoternote-export-to-onenote.tooltip "This will export selected items to unique pages in your default notebook.">
+<!ENTITY zoternote-export-to-onenote.tooltipCollection "This will export all items in collection to unique pages in your default notebook.">

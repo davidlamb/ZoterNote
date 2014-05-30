@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://ZoterNote/skin/overlay.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://ZoterNote/locale/overlay.dtd">
+
+<overlay id="zoternote-overlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+		<menupopup id="zotero-itemmenu">
+			<menuseparator id="id-zoternote-item-separator"/>
+			<menuitem id="zoternote-export-to-onenote" label="Export to OneNote" tooltiptext="Export to OneNote" oncommand="Zotero.ZoterNote.exportSelectedItems();"/>
+		</menupopup>	
+		<menupopup id="zotero-collectionmenu">
+			<menuseparator id="id-zoternote-collection-separator"/>
+			<menuitem id="zoternote-export-to-onenote-collection" label="Export Collection to OneNote" tooltiptext="Export to OneNote" oncommand="Zotero.ZoterNote.exportSelectedCollections();"/>
+		</menupopup>	
+		<script src="chrome://zotero/content/include.js"/>
+		<script src="chrome://ZoterNote/content/include.js" type="application/javascript;version=1.8"/>
+</overlay>
