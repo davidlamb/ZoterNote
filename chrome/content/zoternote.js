@@ -95,48 +95,46 @@ Zotero.ZoterNote = {
 	},
 	
 	sendCommunication: function(){
-		alert(this.d["name"]);
-		if (handleCommunication){
-			handleCommunication = null;
+		var data = this.d
+		var newTabBrowser = gBrowser.getBrowserForTab(gBrowser.addTab("http://davidlamb.github.io/ZoterNote.html"));
+		var ld = function(){
+			newTabBrowser.removeEventListener("load",ld,false);
+			document.addEventListener("ZoterNote-query",listen_request,false,false);
 		}
-		var handleCommunication = {
-			listen_request: function(callback,data) { // analogue of chrome.extension.onRequest.addListener
-				document.addEventListener("ZoterNote-query", function(event) {
-					var node = event.target;
-					if (!node || node.nodeType != Node.TEXT_NODE){
-						return;
-					}
-					var doc = node.ownerDocument;
-					callback(data,JSON.parse(node.nodeValue), doc, function(response) {
-						node.nodeValue = JSON.stringify(response);
-
-						var event = doc.createEvent("HTMLEvents");
-						event.initEvent("ZoterNote-response", true, false);
-						newTabBrowser.removeEventListener("load", handleCommunication.listen_request, true);
-						return node.dispatchEvent(event);
-					});
-				}, false, true);
-			},
-			callback: function(data, request, sender, callback) {
-				if (request.ready) {
-					return setTimeout(function() {
-						alert(data.name)
-						callback(data);
-					}, 1000);
-				}
-
-				return callback(null);
+		var listen_request = function(event){
+			//alert("listen request");
+			document.removeEventListener("ZoterNote-query",listen_request,false);
+			var node = event.target;
+			if (!node || node.nodeType != Node.TEXT_NODE){
+				return;
 			}
+			var doc = node.ownerDocument;
+			
+			//alert("inside zoternotequery" + data.name)
+			callback(JSON.parse(node.nodeValue), doc, function(response) {
+				node.nodeValue = JSON.stringify(response);
+
+				var event = doc.createEvent("HTMLEvents");
+				event.initEvent("ZoterNote-response", true, false);
+				//newTabBrowser.removeEventListener("load", handleCommunication.listen_request, true);
+				return node.dispatchEvent(event);
+			});
+			
 		}
-		var browser = this.wm.getMostRecentWindow("navigator:browser").gBrowser;
-		//var newTabBrowser = browser.getBrowserForTab(browser.addTab("http:\\davidlamb.github.io\ZoterNote.html");
-		var newTabBrowser = gBrowser.getBrowserForTab(gBrowser.addTab("chrome://ZoterNote/content/ZoterNote.html"));
-		newTabBrowser.addEventListener("load", handleCommunication.listen_request(handleCommunication.callback,this.d), false);
+		var callback = function(request, sender, cb){
+			if (request.ready) {
+				
+				return setTimeout(function() {
+					//alert("callback " + data.name)
+					cb(data);
+				}, 1000);
+			}
+	
+			return callback(null);
+		}
+		newTabBrowser.addEventListener("load", ld(this.d), false);
+
 		
 	}
 
- 
-
-	
-		
 };

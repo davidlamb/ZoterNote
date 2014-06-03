@@ -38,7 +38,10 @@
 				},
 
 				callback: function(response) {
-					console.log(response);
+					this.d = response;
+					console.log(this.d);
+					
+					
 					return true;
 				}
 			  }
@@ -47,7 +50,7 @@
 			
 			
 			
-			WL.init({
+	    WL.init({
                 client_id: APP_CLIENT_ID,
                 redirect_uri: "http://davidlamb.github.io/zoternotecallback.html",
                 scope: ["wl.signin","office.onenote_create","wl.offline_access"],
