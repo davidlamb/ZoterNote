@@ -86,9 +86,10 @@ Zotero.ZoterNote = {
 		var f = {"id":item.id,"title":item.getField('title'),"abstract": item.getField('abstractNote'),"notesHTML":[],"citation":biblio_html_format};
 		var notes = item.getNotes(); 
 
-		for (var j=0;j<notes.length.length;j++) {
+		for (var j=0;j<notes.length;j++) {
 			var note = this.Zotero.Items.get(notes[j]);
 			var note_html = note.getNote();
+			//alert(note_html);
 			f["notesHTML"].push(note_html);
 		} 
 		return f;
@@ -99,7 +100,7 @@ Zotero.ZoterNote = {
 		var newTabBrowser = gBrowser.getBrowserForTab(gBrowser.addTab("http://davidlamb.github.io/ZoterNote.html"));
 		var ld = function(){
 			newTabBrowser.removeEventListener("load",ld,false);
-			document.addEventListener("ZoterNote-query",listen_request,false,false);
+			document.addEventListener("ZoterNote-query",listen_request,false,true);
 		}
 		var listen_request = function(event){
 			//alert("listen request");
@@ -132,7 +133,7 @@ Zotero.ZoterNote = {
 	
 			return callback(null);
 		}
-		newTabBrowser.addEventListener("load", ld(this.d), false);
+		newTabBrowser.addEventListener("load", ld(this.d), true);
 
 		
 	}
